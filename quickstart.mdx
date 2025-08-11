@@ -1,80 +1,152 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: "Quick Start"
+description: "Get your first MentraOS app running in 5 minutes"
 ---
 
-## Get started in three steps
+## Prerequisites
 
-Get your documentation site running locally and make your first customization.
+Before you begin, make sure you have:
 
-### Step 1: Set up your local environment
+<Steps>
+  <Step title="Node.js">
+    Install [Node.js](https://nodejs.org/) version 16 or higher
+  </Step>
+  <Step title="Developer Account">
+    Sign up at [dev.mentraos.com](https://dev.mentraos.com) to get your API key
+  </Step>
+  <Step title="MentraOS App">
+    Install the MentraOS mobile app and connect your smart glasses
+  </Step>
+</Steps>
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+## Create Your First App
+
+### 1. Install the SDK
+
+<CodeGroup>
+```bash npm
+npm install @mentraos/sdk
+```
+
+```bash yarn
+yarn add @mentraos/sdk
+```
+
+```bash pnpm
+pnpm add @mentraos/sdk
+```
+</CodeGroup>
+
+### 2. Create Your App
+
+Create a new file `app.js`:
+
+```javascript
+import { AppServer } from '@mentraos/sdk';
+
+// Create your app server
+const server = new AppServer({
+  packageName: 'com.example.myapp',
+  apiKey: process.env.MENTRAOS_API_KEY,
+  port: 3000
+});
+
+// Handle new sessions
+server.onSession(async (session, sessionId, userId) => {
+  console.log(`New session: ${sessionId} for user: ${userId}`);
+  
+  // Show welcome message
+  await session.layouts.showTextWall('Hello from MentraOS!');
+  
+  // Listen for transcriptions
+  session.events.onTranscription((data) => {
+    console.log(`User said: ${data.text}`);
     
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    // Respond to "hello"
+    if (data.text.toLowerCase().includes('hello')) {
+      session.layouts.showReferenceCard({
+        title: 'Greeting',
+        text: 'Hello! How can I help you today?'
+      });
+    }
+  });
+  
+  // Listen for button presses
+  session.events.onButtonPress((data) => {
+    console.log(`Button pressed: ${data.buttonId}`);
+    session.layouts.showTextWall('Button pressed!');
+  });
+});
 
-### Step 2: Deploy your changes
+// Start the server
+server.start().then(() => {
+  console.log('App server running on port 3000');
+});
+```
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+### 3. Set Your API Key
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+Create a `.env` file:
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+```bash
+MENTRAOS_API_KEY=your_api_key_here
+```
 
-### Step 3: Go live
+### 4. Run Your App
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+```bash
+node app.js
+```
 
-## Next steps
+## Connect Your App
 
-Now that you have your docs running, explore these key features:
+<Steps>
+  <Step title="Open Developer Portal">
+    Go to [dev.mentraos.com](https://dev.mentraos.com) and navigate to your app
+  </Step>
+  <Step title="Set Webhook URL">
+    Set your webhook URL to `http://your-server.com/webhook`
+  </Step>
+  <Step title="Start the App">
+    In the MentraOS mobile app, say "Start [your app name]"
+  </Step>
+</Steps>
+
+## What's Next?
 
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card
+    title="Cloud Architecture"
+    icon="cloud"
+    href="/1-overview"
+  >
+    Understand how MentraOS Cloud works under the hood
+  </Card>
+  <Card
+    title="Message Types"
+    icon="message"
+    href="/4-message-types"
+  >
+    Learn about all the messages you can send and receive
+  </Card>
+  <Card
+    title="SDK Reference"
+    icon="code"
+    href="/5-sdk-and-apps"
+  >
+    Explore the full SDK API and build advanced features
+  </Card>
+  <Card
+    title="Example Scenarios"
+    icon="lightbulb"
+    href="/6-common-scenarios"
+  >
+    See complete examples of common use cases
+  </Card>
 </CardGroup>
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+## Need Help?
+
+- Join our [Discord community](https://discord.gg/5ukNvkEAqT)
+- Check out [example apps](https://github.com/Mentra-Community/MentraOS/tree/main/examples)
+- Read the [troubleshooting guide](/troubleshooting)

@@ -1,97 +1,141 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "MentraOS Cloud Documentation"
+description: "Internal documentation for MentraOS Cloud development"
 ---
 
-## Setting up
+## Welcome to MentraOS Cloud
 
-Get your documentation site up and running in minutes.
+This is the internal documentation for developers working on the MentraOS Cloud codebase. Here you'll find detailed information about the cloud architecture, services, managers, and how to set up your development environment.
 
 <Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
+  title="Cloud Architecture Overview"
+  icon="cloud"
+  href="/cloud-overview/introduction"
   horizontal
 >
-  Follow our three step quickstart guide.
+  Understand how the cloud orchestrates communication between glasses, mobile apps, and third-party applications.
 </Card>
 
-## Make it yours
+## Getting Started
 
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
-
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
+Essential resources for cloud development.
 
 <Columns cols={2}>
   <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
+    title="Local Development Setup"
+    icon="laptop"
+    href="/development/local-setup"
   >
-    Use MDX to style your docs pages.
+    Run the cloud locally with Docker, ngrok, and connect your mobile app.
   </Card>
   <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
+    title="Authentication Flow"
+    icon="shield"
+    href="/cloud-overview/authentication-flow"
   >
-    Add sample code to demonstrate how to use your product.
+    Understand JWT authentication and session management.
   </Card>
   <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
+    title="User Sessions"
+    icon="users"
+    href="/cloud-overview/user-sessions"
   >
-    Display images and other media.
+    Learn about UserSession - the core entity managing connections.
   </Card>
   <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
+    title="Message Types"
+    icon="message"
+    href="/cloud-overview/message-types"
   >
-    Write once and reuse across your docs.
+    All message types flowing between glasses, cloud, and apps.
   </Card>
 </Columns>
 
-## Need inspiration?
+## Core Architecture
+
+Deep dive into the cloud's internal structure.
+
+<Columns cols={3}>
+  <Card title="WebSocket Service" icon="plug" href="/cloud-architecture/services/websocket-service">
+    Routes connections between glasses and apps
+  </Card>
+  <Card title="Session Service" icon="server" href="/cloud-architecture/services/session-service">
+    Orchestrates UserSession lifecycle
+  </Card>
+  <Card title="UserSession Class" icon="user" href="/cloud-architecture/session-management/user-session-class">
+    The heart of the system - manages everything
+  </Card>
+  <Card title="Managers Pattern" icon="puzzle" href="/cloud-architecture/managers/overview">
+    Specialized managers for different concerns
+  </Card>
+  <Card title="Subscription Service" icon="bell" href="/cloud-architecture/services/subscription-service">
+    Controls data flow to apps
+  </Card>
+  <Card title="Message Types" icon="message" href="/cloud-overview/message-types">
+    All SDK types and interfaces
+  </Card>
+</Columns>
+
+## Manager Documentation
+
+Detailed guides for each UserSession manager.
+
+<Columns cols={2}>
+  <Card
+    title="App Manager"
+    icon="cube"
+    href="/cloud-architecture/managers/app-manager"
+  >
+    App lifecycle, webhooks, and resurrection
+  </Card>
+  <Card
+    title="Audio Manager"
+    icon="volume"
+    href="/cloud-architecture/managers/audio-manager"
+  >
+    Audio processing and distribution
+  </Card>
+  <Card
+    title="Display Manager"
+    icon="monitor"
+    href="/cloud-architecture/managers/display-manager"
+  >
+    Display throttling and prioritization
+  </Card>
+  <Card
+    title="Transcription Manager"
+    icon="microphone"
+    href="/cloud-architecture/managers/transcription-manager"
+  >
+    Multi-provider speech-to-text
+  </Card>
+</Columns>
+
+## Development Resources
 
 <Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
+  title="Common Development Scenarios"
+  icon="book"
+  href="/cloud-overview/common-scenarios"
 >
-  Browse our showcase of exceptional documentation sites.
+  Real-world examples of message flows and integration patterns.
 </Card>
+
+## Join the Community
+
+<Columns cols={2}>
+  <Card
+    title="Discord"
+    icon="discord"
+    href="https://discord.gg/5ukNvkEAqT"
+  >
+    Chat with other developers and get help from the team.
+  </Card>
+  <Card
+    title="GitHub"
+    icon="github"
+    href="https://github.com/Mentra-Community/MentraOS"
+  >
+    Contribute to MentraOS and see the source code.
+  </Card>
+</Columns>
